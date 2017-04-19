@@ -1,0 +1,9 @@
+{
+  "laxcomma": true,
+  "globals": {
+    "console": false,
+    "require": false,
+    "angular": false,
+    "module": false
+  }
+}

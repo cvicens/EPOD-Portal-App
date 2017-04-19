@@ -1,0 +1,34 @@
+{
+  "name": "fh-wfm-user",
+  "version": "0.0.19",
+  "description": "A user module for WFM",
+  "main": "lib/angular/user-ng.js",
+  "scripts": {
+    "build": "wfm-template-build -m 'wfm.user.directives'",
+    "watch": "wfm-template-build -w -m 'wfm.user.directives'"
+  },
+  "keywords": [
+    "wfm",
+    "user"
+  ],
+  "author": {
+    "name": "Brian Leathem"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "express": "4.13.4",
+    "fh-mbaas-api": "5.5.6",
+    "lodash": "4.7.0",
+    "q": "1.4.1"
+  },
+  "devDependencies": {
+    "fh-wfm-mediator": "0.0.13",
+    "fh-wfm-template-build": "0.0.8"
+  },
+  "readme": "# FeedHenry WFM user [![Build Status](https://travis-ci.org/feedhenry-raincatcher/raincatcher-user.png)](https://travis-ci.org/feedhenry-raincatcher/raincatcher-user)\n\nA module for FeedHenry WFM that manages users, groups and memberships. It provides :\n- Backend services to handle CRUD operations for user, group and membership.\n- Frontend directives and services providing CRUD clients for user, group and membership.\n\n\n## Client-side usage\n\n### Client-side usage (via broswerify)\n\n#### Setup\nThis module is packaged in a CommonJS format, exporting the name of the Angular namespace.  The module can be included in an angular.js as follows:\n\n```javascript\nangular.module('app', [\n, require('fh-wfm-user')\n...\n])\n```\n\n#### Integration\n\n##### Angular Services\n\nThis module provides 3 injectable CRUDL services :\n\n- `userClient` : to create, read, list, update and delete users.\n- `groupClient` : to create, read, list, update and delete groups.\n- `membershipClient` : to create, read, list, update and delete groups.\n\nthe `userClient` has these extra functions : `auth`, `hasSession`, `clearSession`, `verify` and `getProfile`\n\nExample usage :\n```javascript\nresolve: {\n        worker: function($stateParams, userClient) {\n          return userClient.read($stateParams.workerId);\n        }\n```\nFor a more complete example around CRUD operations, please check the [demo portal app](https://github.com/feedhenry-staff/wfm-portal/blob/master/src/app/worker/worker.js).\n\nFor a more complete example around user authentication operations, please check the [this](https://github.com/feedhenry-staff/wfm-portal/blob/master/src/app/auth/auth.js).\n\n##### Directives\n\n| Name | Attributes |\n| ---- | ----------- |\n| worker-list | workers, selectedModel |\n| worker | worker, group |\n| worker-form | value, group |\n| group-list | groups, selectedModel |\n| group | group, members |\n| group-form | value |\n\n## Usage in an express backend and mbaas service\n\n### Setup express backend end\nThe server-side component of this WFM module exports a function that takes express and mediator instances as parameters, as in:\n\n```javascript\nvar express = require('express')\n  , app = express()\n  , mbaasExpress = mbaasApi.mbaasExpress()\n  , mediator = require('fh-wfm-mediator/lib/mediator')\n  ;\n// Set authServiveGuid\nvar authServiceGuid = process.env.WFM_AUTH_GUID;\n\n// configure the express app\n...\n\n// setup the wfm user router\nrequire('fh-wfm-user/lib/router/cloud')(mediator, app, authServiceGuid);\n\n```\n\n### Setup mbaas service\n\n```javascript\nvar express = require('express')\n  , app = express()\n  , mbaasExpress = mbaasApi.mbaasExpress()\n  , mediator = require('fh-wfm-mediator/lib/mediator')\n  ;\n// Set authServiveGuid\nvar authServiceGuid = process.env.WFM_AUTH_GUID;\n\n// configure the express app\n...\n\n// setup the wfm user router\nrequire('fh-wfm-user/lib/router/mbaas')(mediator, app);\n```\n\nFor a more complete example check [here](https://github.com/feedhenry-staff/wfm-auth)\n\n### Environment variables\nThe `WFM_AUTH_POLICY_ID` env var can be set in the WFM cloud APP to override the default `wfm` auth policy ID.\n\n### Exposed CRUD endpoints\n\nBase url : `/api/wfm/[group|user|membership|`\n\n| resource | method | returns |\n| -------- | ------ | ------- |\n| / | GET | array of users/groups/memberships |\n| /:id | GET | user/group/membership |\n| /:id | PUT | updated user/group/membership |\n| / | POST | created user/group/membership |\n| /:id | DELETE | deleted user/group/membership |\n\n### Exposed Auth endpoints\n\nBase url : `/api/wfm/user`\n\n| resource | method | returns |\n| -------- | ------ | ------- |\n| /auth | all | `{satus: 'ok', userId: username, sessionToken: sessiontoken, authResponse: profileData}` |\n| /verifysession | all | `{isValid: true}` |\n| /revokesession | all | `{}` |\n\n\n\n### message data structure example\n- user :\n\n```javascript\n\n  {\n    \"id\" : \"156340\",\n    \"username\" : \"trever\",\n    \"name\" : \"Trever Smith\",\n    \"position\" : \"Senior Truck Driver\",\n    \"phone\" : \"(265) 725 8272\",\n    \"email\" : \"trever@wfm.com\",\n    \"notes\" : \"Trever doesn't work during the weekends.\",\n    \"avatar\" : \"https://s3.amazonaws.com/uifaces/faces/twitter/kolage/128.jpg\",\n    \"banner\" : \"http://web18.streamhoster.com/pentonmedia/beefmagazine.com/TreverStockyards_38371.jpg\"\n  }\n\n```\n- group :\n\n```javascript\n  {\n    id: 1010,\n    name: 'Drivers',\n    role: 'worker'\n  }\n```\n- membership :\n\n```javascript\n  {\n    id: 0,\n    group: 1010,\n    user: 156340\n  }\n```\n",
+  "readmeFilename": "README.md",
+  "_id": "fh-wfm-user@0.0.19",
+  "_shasum": "c2e48270238ce712dfbf022d451dcccbcce0c1f6",
+  "_resolved": "https://registry.npmjs.org/fh-wfm-user/-/fh-wfm-user-0.0.19.tgz",
+  "_from": "https://registry.npmjs.org/fh-wfm-user/-/fh-wfm-user-0.0.19.tgz"
+}

@@ -1,0 +1,225 @@
+<md-dialog aria-label="EPOD Details">
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>EPOD details for customer {{result.customerName}}</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content style="max-width:800px;max-height:400px; ">
+      <!-- <md-subheader>Ticket #{{result.ticketNumber}}</md-subheader> -->
+      <md-list>
+        <md-list-item class="md-2-line" >
+          <md-icon md-font-set="material-icons">done</md-icon>
+          <div class="md-list-item-text">
+            <h3>{{result.completedAction}}</h3>
+            <p>Completed Action</p>
+          </div>
+        </md-list-item>
+
+        <md-list-item class="md-2-line" >
+          <md-icon md-font-set="material-icons">location_on</md-icon>
+          <div class="md-list-item-text">
+            <h3>{{result.originName}}</h3>
+            <p>Loaded at</p>
+          </div>
+        </md-list-item>
+
+        <md-list-item class="md-2-line" >
+          <md-icon md-font-set="material-icons">phone</md-icon>
+          <div class="md-list-item-text">
+            <h3>{{result.originPhone}}</h3>
+            <p>Origin Phone</p>
+          </div>
+        </md-list-item>
+        <md-divider></md-divider>
+
+        <md-list-item class="md-2-line" >
+          <md-icon md-font-set="material-icons">account_balance</md-icon>
+          <div class="md-list-item-text">
+            <h3>{{result.customerName}}</h3>
+            <p>Customer</p>
+          </div>
+        </md-list-item>
+
+        <md-list-item class="md-2-line" >
+          <md-icon md-font-set="material-icons">account_box</md-icon>
+          <div class="md-list-item-text">
+            <h3>{{result.account}}</h3>
+            <p>Account</p>
+          </div>
+        </md-list-item>
+
+        <md-list-item class="md-2-line" >
+          <md-icon md-font-set="material-icons">description</md-icon>
+          <div class="md-list-item-text">
+            <h3>{{result.contract}}</h3>
+            <p>Contract</p>
+          </div>
+        </md-list-item>
+
+        <md-list-item class="md-2-line" >
+          <md-icon md-font-set="material-icons">description</md-icon>
+          <div class="md-list-item-text">
+            <h3>{{result.callOff}}</h3>
+            <p>Call Off</p>
+          </div>
+        </md-list-item>
+        <md-divider></md-divider>
+
+        <md-list-item class="md-2-line" >
+          <md-icon md-font-set="material-icons">perm_contact_calendar</md-icon>
+          <div class="md-list-item-text">
+            <h3>{{result.product}}</h3>
+            <p>Product</p>
+          </div>
+        </md-list-item>
+
+        <md-list-item class="md-2-line" >
+          <md-icon md-font-set="material-icons">perm_contact_calendar</md-icon>
+          <div class="md-list-item-text">
+            <h3>{{result.ce}}</h3>
+            <p>CE</p>
+          </div>
+        </md-list-item>
+
+        <md-list-item class="md-2-line" >
+          <md-icon md-font-set="material-icons">perm_contact_calendar</md-icon>
+          <div class="md-list-item-text">
+            <h3>{{result.driver}}</h3>
+            <p>Driver</p>
+          </div>
+        </md-list-item>
+
+        <md-list-item class="md-2-line" >
+          <md-icon md-font-set="material-icons">local_shipping</md-icon>
+          <div class="md-list-item-text">
+            <h3>{{result.vehicle}}</h3>
+            <p>Vehicle</p>
+          </div>
+        </md-list-item>
+        <md-divider></md-divider>
+
+        <md-list-item class="md-2-line" >
+          <md-icon md-font-set="material-icons">timer</md-icon>
+          <div class="md-list-item-text">
+            <h3>{{result.timeLeftPlant}}</h3>
+            <p>Time Left Plant</p>
+          </div>
+        </md-list-item>
+
+        <md-list-item class="md-2-line" >
+          <md-icon md-font-set="material-icons">timer</md-icon>
+          <div class="md-list-item-text">
+            <h3>{{result.timeOnSite}}</h3>
+            <p>Time Arrive On Site</p>
+          </div>
+        </md-list-item>
+
+        <md-list-item class="md-2-line" >
+          <md-icon md-font-set="material-icons">timer</md-icon>
+          <div class="md-list-item-text">
+            <h3>{{result.timeOffSite}}</h3>
+            <p>Time Off Site</p>
+          </div>
+        </md-list-item>
+        <md-divider></md-divider>
+
+        <md-content ng-show=" result.completedAction === 'CONFIRM ADDITIONS' || result.completedAction === 'SUMMARY' ">
+        <md-list-item class="md-2-line" >
+          <md-icon md-font-set="material-icons">format_color_fill</md-icon>
+          <div class="md-list-item-text">
+            <h3>{{result.addedWater}} l</h3>
+            <p>Added Water</p>
+          </div>
+        </md-list-item>
+
+        <md-list-item class="md-2-line" >
+          <md-icon md-font-set="material-icons">undo</md-icon>
+          <div class="md-list-item-text">
+            <h3>{{result.returnedMaterial}} m3</h3>
+            <p>Return Material</p>
+          </div>
+        </md-list-item>
+
+        <md-list-item class="md-2-line" >
+          <md-icon md-font-set="material-icons">slow_motion_video</md-icon>
+          <div class="md-list-item-text">
+            <h3>{{result.waitingTime}} min</h3>
+            <p>Waiting Time</p>
+          </div>
+        </md-list-item>
+        <md-divider></md-divider>
+        </md-content>
+
+        <md-list-item class="md-2-line" >
+          <md-icon md-font-set="material-icons">event</md-icon>
+          <div class="md-list-item-text">
+            <h3>{{result.ticketDate}}</h3>
+            <p>Ticket Date</p>
+          </div>
+        </md-list-item>
+
+        <md-list-item class="md-2-line" >
+          <md-icon md-font-set="material-icons">timer</md-icon>
+          <div class="md-list-item-text">
+            <h3>{{result.ticketTime}}</h3>
+            <p>Time Out</p>
+          </div>
+        </md-list-item>
+
+        <md-list-item class="md-2-line" >
+          <md-icon md-font-set="material-icons">receipt</md-icon>
+          <div class="md-list-item-text">
+            <h3>{{result.ticketNumber}}</h3>
+            <p>Delivery Ticket</p>
+          </div>
+        </md-list-item>
+        <md-divider></md-divider>
+
+        <md-list-item class="md-2-line" >
+          <md-icon md-font-set="material-icons">location_on</md-icon>
+          <div class="md-list-item-text">
+            <h3>{{result.addressDetail}}</h3>
+            <h3>{{result.addressStreet}}</h3>
+            <h3>{{result.addressPostalCode}}</h3>
+            <h3>{{result.addressCity}}</h3>
+            <p>Delivery Address</p>
+          </div>
+        </md-list-item>
+      <md-divider></md-divider>
+
+      <md-list-item class="md-2-line" >
+        <md-icon md-font-set="material-icons">report_problem</md-icon>
+        <div class="md-list-item-text">
+          <h3>{{result.specialInstructions}}</h3>
+          <p>Special Instruccions</p>
+        </div>
+      </md-list-item>
+      <md-divider></md-divider>
+
+      <md-list-item class="md-2-line with-image" ng-show="result.completedAction === 'SUMMARY'">
+        <md-icon md-font-set="material-icons">gesture</md-icon>
+        <div class="md-list-item-text">
+          <h3><signature value="result.customerSignature"></signature></h3>
+          <p>Customer signature</p>
+        </div>
+      </md-list-item>
+
+      </md-list>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="answer('not useful')" >
+        Email
+      </md-button>
+      <md-button ng-click="answer('useful')" style="margin-right:20px;" md-autofocus>
+        Download
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

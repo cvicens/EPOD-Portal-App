@@ -1,0 +1,120 @@
+<md-content ng-cloak  class="wfm-maincol-scroll wfm-maincol-scroll_with-menu" style="height: 100%;">
+
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h3 layout="row">
+        <span>Delivery Tickets</span>
+      </h3>
+      <span flex></span><md-button ng-click="refresh()" style="align: right;">Refresh</md-button>
+    </div>
+  </md-toolbar>
+
+  <div layout="row">
+  <div flex="70" layout="column">
+  <md-input-container class="md-block">
+    <label>Search</label>
+    <md-icon md-font-set="material-icons">search</md-icon>
+    <input ng-model="query" type="text" ng-change="search($event)"/>
+  </md-input-container>
+  </div>
+  <div flex layout="column">
+  <md-input-container class="md-block">
+    <label>Works</label>
+    <input ng-model="works" type="text" ng-change="search($event)"/>
+  </md-input-container>
+  </div>
+  </div>
+
+  <md-card  ng-repeat="workorder in workorders track by $index" ng-class="{active: ctrl.selected.id === workorder.id}" >
+    <md-card-header ng-show="workorder.aborted" ng-style="getCardStyle(workorder)">
+      <md-card-avatar>
+        <md-icon md-font-set="material-icons">error</md-icon>
+      </md-card-avatar>
+      <md-card-header-text>
+        <span class="md-title">Aborted because of: {{workorder.abortReason}}</span>
+        <span class="md-subhead">Aborted at {{workorder.abortTime}}</span>
+      </md-card-header-text>
+    </md-card-header>
+
+    <md-card-header ng-show="(workorder.addedWater > 0 || workorder.waitingTime > 30) &amp;&amp; ! workorder.chargesInvoiced" ng-style="getCardStyle(workorder)">
+      <md-card-avatar style="padding-right: 12px">
+        <md-icon md-font-set="material-icons">error</md-icon>
+      </md-card-avatar>
+      <md-card-header-text>
+        <div layout="row">
+        <div flex layout="column">
+          <span class="md-title">Additional charges pending</span>
+          <span class="md-subhead"><md-icon md-font-set="material-icons">format_color_fill</md-icon> {{workorder.addedWater}} l <md-icon md-font-set="material-icons">slow_motion_video</md-icon> {{workorder.waitingTime}} min</span>
+        </div>
+        <div layout-align="end center">
+          <label>Already invoiced <input type="checkbox" ng-model="workorder.chargesInvoiced" ng-click="setChargesInvoicedOn(workorder)"></label>
+        </div>
+      </div>
+      </md-card-header-text>
+    </md-card-header>
+    <md-card-title ng-click="showDetail($event, $index)">
+      <md-card-title-text>
+        <span class="md-title">{{workorder.title}} at {{workorder.customerName}} from {{workorder.works}}</span>
+        <span class="md-subhead">{{workorder.summary}}</span>
+      </md-card-title-text>
+    </md-card-title>
+    <md-card-content ng-click="showDetail($event, $index)">
+      <div layout="row" layout-xs="column">
+        <div flex>
+          <md-list flex>
+            <md-list-item class="md-2-line" >
+              <md-icon md-font-set="material-icons">{{getStatusIcon(workorder.status)}}<md-tooltip>{{workorder.status}}</md-tooltip></md-icon>
+              <div class="md-list-item-text" layout="column">
+                <h3>{{ workorder.status }}</h3>
+                <p>Status</p>
+              </div>
+            </md-list-item>
+          </md-list>
+        </div>
+        <div flex>
+          <md-list flex>
+            <md-list-item class="md-3-line" >
+              <div class="md-list-item-text" layout="column">
+                <h3>{{ workorder.ticketNumber }}</h3>
+                <h4>{{ workorder.ticketDate }} {{ workorder.ticketTime}}</h4>
+                <p>Ticket</p>
+              </div>
+            </md-list-item>
+          </md-list>
+        </div>
+        <div flex>
+          <md-list flex>
+            <md-list-item class="md-2-line" >
+              <div class="md-list-item-text" layout="column">
+                <h3>{{ workorder.account }}</h3>
+                <p>Account</p>
+              </div>
+            </md-list-item>
+          </md-list>
+        </div>
+        <div flex>
+          <md-list flex>
+            <md-list-item class="md-3-line" >
+              <div class="md-list-item-text" layout="column">
+                <h3>{{workorder.product}}</h3>
+                <h4>{{workorder.po}}</h4>
+                <p>Product/PO</p>
+              </div>
+            </md-list-item>
+          </md-list>
+        </div>
+        <div flex ng-show="workorder.addedWater >= 0 &amp;&amp; workorder.waitingTime >= 0">
+          <md-list flex>
+            <md-list-item class="md-3-line" >
+              <div class="md-list-item-text" layout="column">
+                <h3><md-icon md-font-set="material-icons">format_color_fill</md-icon> {{workorder.addedWater}} l</h3>
+                <h3><md-icon md-font-set="material-icons">slow_motion_video</md-icon> {{workorder.waitingTime}} min</h3>
+                <p>Additions</p>
+              </div>
+            </md-list-item>
+          </md-list>
+        </div>
+      </div>
+    </md-card-content>
+  </md-card>
+</md-content>
