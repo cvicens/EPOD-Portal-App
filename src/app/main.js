@@ -41,7 +41,8 @@ angular.module('app', [
 , require('./polarity-check')
 , require('./vehicle-assessment')
 , require('./epod-generic')
-, require('./delivery-ticket/delivery-ticket')
+, require('./questionnaire')
+//, require('./delivery-ticket/delivery-ticket')
 , require('./wfm-user') 
 ])
 
@@ -53,14 +54,14 @@ angular.module('app', [
 
 .config(function($stateProvider, $urlRouterProvider) {
   // Default route
-  //$urlRouterProvider.otherwise('/workorders/list');
-  $urlRouterProvider.otherwise('/delivery-ticket/list');
+  $urlRouterProvider.otherwise('/workorders/list');
+  //$urlRouterProvider.otherwise('/delivery-ticket/list');
 
   $stateProvider
     .state('app', {
       abstract: true,
-      //templateUrl: 'app/main.tpl.html',
-      templateUrl: 'app/epod-aggregate-main.tpl.html',
+      templateUrl: 'app/main.tpl.html',
+      //templateUrl: 'app/epod-aggregate-main.tpl.html',
       data: {
         columns: 3
       },
@@ -69,9 +70,12 @@ angular.module('app', [
           return workorderSync.createManager();
         },
         epodWorkorderManager: function(workorderSync) {
-          var filter = {
+          /*var filter = {
             key: 'subtype',
             value: 'EPOD'
+          };*/
+          var filter = {
+            
           };
           return workorderSync.createManager({filter: filter});
         },
